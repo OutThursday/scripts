@@ -1,0 +1,46 @@
+local Topbar = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Age = Instance.new("TextLabel")
+local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+local Player = game:GetService('Players').LocalPlayer
+local Age2 = Player:GetUnder13()
+
+Topbar.Name = "Topbar"
+Topbar.Parent = game:GetService('CoreGui')
+Topbar.ResetOnSpawn = false
+Topbar.IgnoreGuiInset = true
+
+Frame.Parent = Topbar
+Frame.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
+Frame.BorderSizePixel = 0
+Frame.Size = UDim2.new(1, 0, 0, 38)
+
+Age.Name = "Age"
+Age.Parent = Frame
+Age.AnchorPoint = Vector2.new(1, 0)
+Age.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Age.BackgroundTransparency = 11.000
+Age.BorderSizePixel = 0
+Age.Position = UDim2.new(1, 0, 0, 0)
+Age.Size = UDim2.new(0, 250, 1, 0)
+Age.Font = Enum.Font.GothamBold
+if Age2 == false then
+	Age.Text = Player.Name.."\nAccount: <13"
+else
+	Age.Text = Player.Name.."\nAccount: 13+"
+end
+Age.TextColor3 = Color3.fromRGB(255, 255, 255)
+Age.TextScaled = true
+Age.TextSize = 16.000
+Age.TextWrapped = true
+Age.TextXAlignment = Enum.TextXAlignment.Left
+Age.TextYAlignment = Enum.TextYAlignment.Top
+
+UITextSizeConstraint.Parent = Age
+UITextSizeConstraint.MaxTextSize = 14
+pcall(function()
+	getgenv().endTopBar = function()
+		pcall(game.Destroy, Topbar)
+    getgenv().endTopBar = nil
+	end
+end)
