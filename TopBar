@@ -24,7 +24,7 @@ Age.BorderSizePixel = 0
 Age.Position = UDim2.new(1, 0, 0, 0)
 Age.Size = UDim2.new(0, 250, 1, 0)
 Age.Font = Enum.Font.GothamBold
-if Age2 == false then
+if Age2 == true then
 	Age.Text = Player.Name.."\nAccount: <13"
 else
 	Age.Text = Player.Name.."\nAccount: 13+"
