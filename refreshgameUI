@@ -1,0 +1,26 @@
+local LoadingScreen = Instance.new("ScreenGui")
+local image = Instance.new("ImageLabel")
+local Loading = Instance.new("TextLabel")
+LoadingScreen.Name = "LoadingScreen"
+LoadingScreen.Parent = game:GetService("CoreGui")
+LoadingScreen.DisplayOrder = 5
+LoadingScreen.ResetOnSpawn = false
+image.Name = "image"
+image.Parent = LoadingScreen
+image.BackgroundColor3 = Color3.fromRGB(117, 191, 255)
+image.Size = UDim2.new(1, 0, 1, 0)
+image.Image = "rbxthumb://type=Avatar&id=2365770765&w=420&h=420"
+Loading.Name = "Loading"
+Loading.Parent = image
+Loading.AnchorPoint = Vector2.new(0, 1)
+Loading.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Loading.BackgroundTransparency = 1.000
+Loading.Position = UDim2.new(0, 0, 1, 0)
+Loading.Size = UDim2.new(1, 0, 0.100000001, 0)
+Loading.Font = Enum.Font.GothamMedium
+Loading.Text = "Refreshing Experience..."
+Loading.TextColor3 = Color3.fromRGB(255, 255, 255)
+Loading.TextScaled = true
+Loading.TextSize = 14.000
+Loading.TextWrapped = true
+return Loading
