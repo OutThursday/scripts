@@ -1,8 +1,6 @@
 local Main = {}
 local CoreGui = game:GetService("CoreGui")
 
-local Utility = {}
-
 function CreateUI()
 	local FK1 = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
@@ -250,6 +248,10 @@ function Utility.CreateLibrary(Title:string)
 		Mods.Size = UDim2.new(0, 350, 0, 410)
 		Mods.CanvasSize = UDim2.new(0, 0, 0, 0)
 		Mods.ScrollBarThickness = 6
+		Mods.ChildAdded:Connect(function()
+			local Udim = UDim2.new(0,0,0, UIListLayout.AbsoluteContentSize.Y + Mods.Size.Y.Offset + UIListLayout.CellPadding.Y.Offset)
+			Mods.CanvasSize = Udim
+		end)
 		UIListLayout.Parent = Mods
 		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
