@@ -200,6 +200,41 @@ function Utility.CreateLibrary(title:string)
 			end
 			return buttonEtc
 		end
+		function Utility3:CreateTextbox(text,entered,orderLayout)
+			local FK = Instance.new("TextBox")
+			FK.Name = text
+			FK.Parent = Page
+			FK.Text = ""
+			FK.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+			FK.BorderColor3 = Color3.fromRGB(55, 55, 55)
+			FK.Size = UDim2.new(0, 50, 0, 50)
+			FK.Font = Enum.Font.GothamMedium
+			FK.PlaceholderText = text
+			FK.TextColor3 = Color3.fromRGB(255, 255, 255)
+			FK.TextScaled = true
+			FK.TextSize = 14.000
+			FK.TextWrapped = true
+			FK.ClearTextOnFocus = false
+			FK.MultiLine = false
+			if orderLayout then
+				FK.LayoutOrder = orderLayout
+			end
+			FK.FocusLost:Connect(function(enterPressed)
+				if enterPressed == true then
+					pcall(entered)
+				end
+			end)
+			local buttonEtc = {}
+			function buttonEtc:Refresh(txt:string,f)
+				if f then
+					FK.Text = txt
+				else
+					FK.PlaceholderText = txt
+				end
+				return buttonEtc
+			end
+			return buttonEtc
+		end
 		return Utility3
 	end
 	return Utility2
