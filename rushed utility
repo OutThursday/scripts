@@ -1,4 +1,5 @@
 local Main = {}
+local Utility = {}
 local CoreGui = game:GetService("CoreGui")
 
 function CreateUI()
@@ -229,7 +230,7 @@ function Utility.CreateLibrary(Title:string)
 		end)
 		local GF = Instance.new("Frame")
 		local Mods = Instance.new("ScrollingFrame")
-		local UIListLayout = Instance.new("UIListLayout")
+		local Grid = Instance.new("UIGridLayout")
 		local Title = Instance.new("TextLabel")
 		GF.Name = text
 		GF.Parent = UI.Frame.Frames
@@ -249,13 +250,14 @@ function Utility.CreateLibrary(Title:string)
 		Mods.CanvasSize = UDim2.new(0, 0, 0, 0)
 		Mods.ScrollBarThickness = 6
 		Mods.ChildAdded:Connect(function()
-			local Udim = UDim2.new(0,0,0, UIListLayout.AbsoluteContentSize.Y + Mods.Size.Y.Offset + UIListLayout.CellPadding.Y.Offset)
+			local Udim = UDim2.new(0,0,0, Grid.AbsoluteContentSize.Y + Mods.Size.Y.Offset + Grid.CellPadding.Y.Offset - 370)
 			Mods.CanvasSize = Udim
 		end)
-		UIListLayout.Parent = Mods
-		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-		UIListLayout.Padding = UDim.new(0, 5)
+		Grid.CellSize = UDim2.new(0,333,0,35)
+		Grid.Parent = Mods
+		Grid.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		Grid.SortOrder = Enum.SortOrder.LayoutOrder
+		Grid.CellPadding = UDim2.new(0,5,0,5)
 		Title.Name = "Title"
 		Title.Parent = GF
 		Title.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
