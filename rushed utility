@@ -166,6 +166,7 @@ function Utility.CreateLibrary(title:string)
 		local Page = Instance.new("ScrollingFrame",Gui.Hub.Pages.Frame)
 		local Grid = Instance.new("UIGridLayout",Page)
 		Grid.CellSize = UDim2.new(0,160,0,50)
+		Grid.SortOrder = Enum.SortOrder.LayoutOrder
 		Page.Name = Name
 		Page.BackgroundTransparency = 1
 		Page.Size = UDim2.new(1,0,1,0)
