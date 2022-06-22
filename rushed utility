@@ -1,244 +1,404 @@
+local Main = {}
+local CoreGui = game:GetService("CoreGui")
+
 local Utility = {}
 
-warn("Made by Shally122368 Group!")
+function CreateUI()
+	local FK1 = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local Title = Instance.new("TextLabel")
+	local Close = Instance.new("TextButton")
+	local Minimize = Instance.new("TextButton")
+	local Buttons = Instance.new("Frame")
+	local Scroll = Instance.new("ScrollingFrame")
+	local UIGridLayout = Instance.new("UIGridLayout")
+	local Frames = Instance.new("Frame")
+	local Popup = Instance.new("Frame")
+	local Popup_2 = Instance.new("UIScale")
+	local Title_2 = Instance.new("TextLabel")
+	local Description = Instance.new("TextLabel")
+	FK1.Name = "FK1"
+	FK1.Parent = CoreGui
+	Frame.Parent = FK1
+	Frame.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+	Frame.BorderColor3 = Color3.fromRGB(170, 85, 0)
+	Frame.BorderSizePixel = 5
+	Frame.ClipsDescendants = true
+	Frame.Position = UDim2.new(0, 82, 0, 114)
+	Frame.Size = UDim2.new(0, 500, 0, 500)
+	Frame.ZIndex = 0
+	Title.Name = "Title"
+	Title.Parent = Frame
+	Title.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
+	Title.BorderColor3 = Color3.fromRGB(173, 57, 0)
+	Title.BorderSizePixel = 0
+	Title.Size = UDim2.new(0, 500, 0, 50)
+	Title.ZIndex = 3
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = "Text"
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextStrokeTransparency = 0.000
+	Title.TextWrapped = true
+	Close.Name = "Close"
+	Close.Parent = Title
+	Close.BackgroundColor3 = Color3.fromRGB(255, 0, 59)
+	Close.BorderSizePixel = 0
+	Close.Position = UDim2.new(0, 460, 0, 9)
+	Close.Size = UDim2.new(0, 31, 0, 31)
+	Close.ZIndex = 8970
+	Close.Font = Enum.Font.SourceSans
+	Close.Text = ""
+	Close.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Close.TextSize = 14.000
+	Close.MouseButton1Click:Connect(function()
+		Frame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.35,false,nil)
+		wait(0.35)
+		FK1:Destroy()
+	end)
+	Minimize.Name = "Minimize"
+	Minimize.Parent = Title
+	Minimize.BackgroundColor3 = Color3.fromRGB(255, 109, 42)
+	Minimize.BorderSizePixel = 0
+	Minimize.Position = UDim2.new(0, 428, 0, 9)
+	Minimize.Size = UDim2.new(0, 31, 0, 31)
+	Minimize.ZIndex = 8970
+	Minimize.Font = Enum.Font.SourceSans
+	Minimize.Text = ""
+	Minimize.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Minimize.TextSize = 14.000
+	local toggle = false
+	Minimize.MouseButton1Click:Connect(function()
+		if toggle == false then
+			Frame:TweenSize(UDim2.new(0,500,0,50),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.45,false,nil)
+			toggle = true
+		else
+			Frame:TweenSize(UDim2.new(0,500,0,500),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.45,false,nil)
+			toggle = false
+		end
+		wait(0.35)
+	end)
+	
+	Buttons.Name = "Buttons"
+	Buttons.Parent = Frame
+	Buttons.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
+	Buttons.BorderColor3 = Color3.fromRGB(173, 57, 0)
+	Buttons.BorderSizePixel = 0
+	Buttons.Position = UDim2.new(0, 0, 0, 50)
+	Buttons.Size = UDim2.new(0, 150, 0, 450)
+	Scroll.Name = "Scroll"
+	Scroll.Parent = Buttons
+	Scroll.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
+	Scroll.BackgroundTransparency = 1.000
+	Scroll.BorderColor3 = Color3.fromRGB(255, 128, 0)
+	Scroll.BorderSizePixel = 0
+	Scroll.ClipsDescendants = false
+	Scroll.Position = UDim2.new(0, 0, 0, 7)
+	Scroll.Size = UDim2.new(0, 150, 0, 443)
+	Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+	Scroll.ScrollBarThickness = 6
 
-local CoreGuiService = game:GetService("CoreGui")
-local GuiService = game:GetService("GuiService")
+	UIGridLayout.Parent = Scroll
+	UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIGridLayout.CellSize = UDim2.new(0, 130, 0, 35)
 
-function Utility.CreateLibrary(title:string)
-	local Utility2 = {}
-	local Pages = {}
-	local currentPage = 1
-	local PageChanged = Instance.new("BindableEvent")
-	local function CreateUtility()
-		local CustomUtility = Instance.new("ScreenGui")
-		local Hub = Instance.new("Frame")
-		local Title = Instance.new("TextLabel")
-		local Pages = Instance.new("ScrollingFrame")
-		local Frame = Instance.new("Frame")
-		local Frame_2 = Instance.new("Frame")
-		local Previous = Instance.new("TextButton")
-		local Next = Instance.new("TextButton")
-		local PageNum = Instance.new("TextButton")
-		CustomUtility.Name = "Custom Utility"
-		CustomUtility.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-		CustomUtility.DisplayOrder = 5
-		CustomUtility.ResetOnSpawn = false
-		Hub.Name = "Hub"
-		Hub.Parent = CustomUtility
-		Hub.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
-		Hub.BorderColor3 = Color3.fromRGB(40, 40, 40)
-		Hub.Position = UDim2.new(0, 57, 0, 37)
-		Hub.Size = UDim2.new(0, 500, 0, 300)
-		Hub.Draggable = true
-		Hub.Active = true
-		Hub.Selectable = true
-		Title.Name = "Title"
-		Title.Parent = Hub
-		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Title.BackgroundTransparency = 1.000
-		Title.Size = UDim2.new(0, 500, 0, 30)
-		Title.Font = Enum.Font.GothamMedium
-		Title.Text = "Example"
-		Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Title.TextScaled = true
-		Title.TextSize = 14.000
-		Title.TextWrapped = true
-		Pages.Name = "Pages"
-		Pages.Parent = Hub
-		Pages.Active = true
-		Pages.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Pages.BackgroundTransparency = 1.000
-		Pages.BorderSizePixel = 0
-		Pages.Position = UDim2.new(0, 0, 0, 30)
-		Pages.Size = UDim2.new(0, 500, 0, 220)
-		Pages.CanvasSize = UDim2.new(0, 0, 0, 0)
-		Frame.Parent = Pages
-		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Frame.BackgroundTransparency = 1.000
-		Frame.Size = UDim2.new(1, 0, 1, 0)
-		Frame_2.Parent = Hub
-		Frame_2.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-		Frame_2.BorderColor3 = Color3.fromRGB(46, 46, 46)
-		Frame_2.Position = UDim2.new(0, 0, 0, 250)
-		Frame_2.Size = UDim2.new(0, 500, 0, 50)
-		Previous.Name = "Previous"
-		Previous.Parent = Frame_2
-		Previous.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		Previous.BorderColor3 = Color3.fromRGB(55, 55, 55)
-		Previous.Size = UDim2.new(0, 50, 0, 50)
-		Previous.Font = Enum.Font.GothamMedium
-		Previous.Text = "<"
-		Previous.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Previous.TextScaled = true
-		Previous.TextSize = 14.000
-		Previous.TextWrapped = true
-		Next.Name = "Next"
-		Next.Parent = Frame_2
-		Next.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		Next.BorderColor3 = Color3.fromRGB(55, 55, 55)
-		Next.Position = UDim2.new(0, 450, 0, 0)
-		Next.Size = UDim2.new(0, 50, 0, 50)
-		Next.Font = Enum.Font.GothamMedium
-		Next.Text = ">"
-		Next.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Next.TextScaled = true
-		Next.TextSize = 14.000
-		Next.TextWrapped = true
-		PageNum.Name = "PageNum"
-		PageNum.Parent = Frame_2
-		PageNum.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		PageNum.BackgroundTransparency = 1.000
-		PageNum.BorderColor3 = Color3.fromRGB(55, 55, 55)
-		PageNum.Position = UDim2.new(0, 155, 0, 0)
-		PageNum.Size = UDim2.new(0, 190, 0, 50)
-		PageNum.Font = Enum.Font.GothamMedium
-		PageNum.Text = "1"
-		PageNum.TextColor3 = Color3.fromRGB(255, 255, 255)
-		PageNum.TextScaled = true
-		PageNum.TextSize = 14.000
-		PageNum.TextWrapped = true
-		local TextButton = Instance.new("TextButton")
-		TextButton.Parent = Title
-		TextButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-		TextButton.BorderColor3 = Color3.fromRGB(170, 50, 50)
-		TextButton.Position = UDim2.new(0, 470, 0, 0)
-		TextButton.Size = UDim2.new(0, 30, 0, 30)
-		TextButton.Font = Enum.Font.GothamMedium
-		TextButton.Text = "X"
-		TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		TextButton.TextScaled = true
-		TextButton.TextSize = 14.000
-		TextButton.TextWrapped = true
-		local Rendering = game:GetService("UserInputService").InputBegan:Connect(function(key)
-			if key.KeyCode == Enum.KeyCode.R then
-				CustomUtility.Enabled = not CustomUtility.Enabled
+	Frames.Name = "Frames"
+	Frames.Parent = Frame
+	Frames.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Frames.BackgroundTransparency = 1.000
+	Frames.Position = UDim2.new(0, 150, 0, 50)
+	Frames.Size = UDim2.new(0, 350, 0, 450)
+
+	Popup.Name = "Popup"
+	Popup.Parent = FK1
+	Popup.AnchorPoint = Vector2.new(0.5, 0.5)
+	Popup.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+	Popup.BorderColor3 = Color3.fromRGB(170, 85, 0)
+	Popup.BorderSizePixel = 3
+	Popup.ClipsDescendants = true
+	Popup.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Popup.Size = UDim2.new(0, 200, 0, 200)
+	Popup.Visible = false
+	Popup.ZIndex = 29
+
+	Popup_2.Name = "Popup"
+	Popup_2.Parent = Popup
+	Popup_2.Scale = 0.000
+
+	Title_2.Name = "Title"
+	Title_2.Parent = Popup
+	Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title_2.BackgroundTransparency = 1.000
+	Title_2.Size = UDim2.new(0, 200, 0, 30)
+	Title_2.ZIndex = 30
+	Title_2.Font = Enum.Font.GothamMedium
+	Title_2.Text = "Notification"
+	Title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title_2.TextScaled = true
+	Title_2.TextSize = 14.000
+	Title_2.TextStrokeTransparency = 0.000
+	Title_2.TextWrapped = true
+
+	Description.Name = "Description"
+	Description.Parent = Popup
+	Description.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+	Description.BorderColor3 = Color3.fromRGB(170, 85, 0)
+	Description.BorderSizePixel = 3
+	Description.Position = UDim2.new(0, 0, 0, 30)
+	Description.Size = UDim2.new(0, 200, 0, 170)
+	Description.ZIndex = 31
+	Description.Font = Enum.Font.GothamMedium
+	Description.Text = ""
+	Description.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Description.TextSize = 34.000
+	Description.TextStrokeTransparency = 0.000
+	Description.TextWrapped = true
+	return FK1
+end
+
+function Utility.DraggableFrame(gui)
+	spawn(function()
+		local UserInputService = game:GetService("UserInputService")
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+		local function update(input)
+			local delta = input.Position - dragStart
+			gui:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y), "InOut", "Quart", 0.0001, true, nil) 
+		end
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
 			end
 		end)
-		TextButton.MouseButton1Click:Connect(function()
-			CustomUtility:Destroy()
-			Rendering:Disconnect()
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
 		end)
-		return CustomUtility
-	end
-	local Gui = CreateUtility()
-	Gui.Name = title
-	Gui.Hub.Title.Text = title
-	local function ShowPage(tab)
-		for i,v in pairs(Gui.Hub.Pages.Frame:GetChildren()) do
-			if v.Name == tab.PageName then
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
+	end)
+end
+
+function Utility.CreateLibrary(Title:string)
+	local UI = CreateUI()
+	Utility.DraggableFrame(UI.Frame)
+	UI.Frame.Title.Text = Title
+	local UtilitiesOptions_1 = {}
+	local function ShowTab(txt)
+		for i,v in pairs(UI.Frame.Frames:GetChildren()) do
+			if v.Name == txt then
 				v.Visible = true
 			else
 				v.Visible = false
 			end
 		end
 	end
-	Gui.Hub.Frame.Previous.MouseButton1Click:Connect(function()
-		if currentPage == 1 then
-			currentPage = #Pages
-			ShowPage(Pages[#Pages])
-		else
-			currentPage = currentPage - 1
-			ShowPage(Pages[currentPage])
-		end
-		PageChanged:Fire(currentPage)
-	end)
-	Gui.Hub.Frame.Next.MouseButton1Click:Connect(function()
-		if currentPage == #Pages then
-			currentPage = 1
-			ShowPage(Pages[1])
-		else
-			currentPage = currentPage + 1
-			ShowPage(Pages[currentPage])
-		end
-		PageChanged:Fire(currentPage)
-	end)
-	PageChanged.Event:Connect(function()
-		Gui.Hub.Frame.PageNum.Text = tostring(currentPage)
-	end)
-	function Utility2:CreatePage(Name:string)
-		Pages[#Pages + 1] = {PageNum = #Pages+1, PageName = Name}
-		local vis = true
-		if #Pages ~= 1 then
-			vis = false
-		end
-		local Utility3 = {}
-		local Page = Instance.new("ScrollingFrame",Gui.Hub.Pages.Frame)
-		local Grid = Instance.new("UIGridLayout",Page)
-		Grid.CellSize = UDim2.new(0,160,0,50)
-		Grid.SortOrder = Enum.SortOrder.LayoutOrder
-		Page.Name = Name
-		Page.BackgroundTransparency = 1
-		Page.Size = UDim2.new(1,0,1,0)
-		Page.Visible = vis
-		Page.ChildAdded:Connect(function()
-			local Udim = UDim2.new(0,0,0, Grid.AbsoluteContentSize.Y + Page.Size.Y.Offset + Grid.CellPadding.Y.Offset)
-			Page.CanvasSize = Udim
+	function UtilitiesOptions_1.CreateTab(text)
+		local UtilitiesOptions_2 = {}
+		local BT = Instance.new("TextButton")
+		BT.Name = text
+		BT.Parent = UI.Frame.Buttons.Scroll
+		BT.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+		BT.BorderColor3 = Color3.fromRGB(255, 128, 0)
+		BT.Size = UDim2.new(0, 200, 0, 50)
+		BT.Font = Enum.Font.GothamMedium
+		BT.Text = text
+		BT.TextColor3 = Color3.fromRGB(255, 255, 255)
+		BT.TextScaled = true
+		BT.TextSize = 14.000
+		BT.TextStrokeTransparency = 0.000
+		BT.TextWrapped = true
+		BT.LayoutOrder = #UI.Frame.Buttons.Scroll:GetChildren()+1
+		local o = #UI.Frame.Frames:GetChildren()
+		BT.MouseButton1Click:Connect(function()
+			ShowTab(text)
 		end)
-		function Utility3:CreateButton(text,callback,orderLayout)
-			local FK = Instance.new("TextButton")
-			FK.Name = text
-			FK.Parent = Page
-			FK.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-			FK.BorderColor3 = Color3.fromRGB(55, 55, 55)
-			FK.Size = UDim2.new(0, 50, 0, 50)
-			FK.Font = Enum.Font.GothamMedium
-			FK.Text = text
-			FK.TextColor3 = Color3.fromRGB(255, 255, 255)
-			FK.TextScaled = true
-			FK.TextSize = 14.000
-			FK.TextWrapped = true
-			if orderLayout then
-				FK.LayoutOrder = orderLayout
-			end
-			FK.MouseButton1Click:Connect(function()
+		local GF = Instance.new("Frame")
+		local Mods = Instance.new("ScrollingFrame")
+		local UIListLayout = Instance.new("UIListLayout")
+		local Title = Instance.new("TextLabel")
+		GF.Name = text
+		GF.Parent = UI.Frame.Frames
+		GF.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		GF.BackgroundTransparency = 1.000
+		GF.Size = UDim2.new(0, 350, 0, 450)
+		GF.Visible = false
+		Mods.Name = text
+		Mods.Parent = GF
+		Mods.Active = true
+		Mods.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Mods.BackgroundTransparency = 1.000
+		Mods.BorderSizePixel = 0
+		Mods.ClipsDescendants = false
+		Mods.Position = UDim2.new(0, 0, 0, 40)
+		Mods.Size = UDim2.new(0, 350, 0, 410)
+		Mods.CanvasSize = UDim2.new(0, 0, 0, 0)
+		Mods.ScrollBarThickness = 6
+		UIListLayout.Parent = Mods
+		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout.Padding = UDim.new(0, 5)
+		Title.Name = "Title"
+		Title.Parent = GF
+		Title.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+		Title.BorderColor3 = Color3.fromRGB(255, 85, 0)
+		Title.BorderSizePixel = 0
+		Title.Size = UDim2.new(0, 350, 0, 38)
+		Title.Font = Enum.Font.GothamBold
+		Title.Text = text
+		Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Title.TextScaled = true
+		Title.TextSize = 14.000
+		Title.TextStrokeTransparency = 0.000
+		Title.TextWrapped = true
+		
+		function UtilitiesOptions_2.CreateButton(text,callback,order)
+			local BTN = Instance.new("TextButton")
+			BTN.Name = text
+			BTN.Parent = Mods
+			BTN.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
+			BTN.BorderColor3 = Color3.fromRGB(255, 206, 6)
+			BTN.LayoutOrder = order or 0
+			BTN.Position = UDim2.new(0, 13, 0, 52)
+			BTN.Size = UDim2.new(0, 333, 0, 35)
+			BTN.Font = Enum.Font.GothamMedium
+			BTN.Text = text
+			BTN.TextColor3 = Color3.fromRGB(255, 255, 255)
+			BTN.TextScaled = true
+			BTN.TextSize = 14.000
+			BTN.TextStrokeTransparency = 0.000
+			BTN.TextWrapped = true
+			BTN.MouseButton1Click:Connect(function()
 				pcall(callback)
 			end)
-			local buttonEtc = {}
-			function buttonEtc:Refresh(txt:string)
-				FK.Text = txt
-				return buttonEtc
-			end
-			return buttonEtc
+			return {Refresh = function(txt)
+				BTN.Text = txt
+			end}
 		end
-		function Utility3:CreateTextbox(text,entered,orderLayout)
-			local FK = Instance.new("TextBox")
-			FK.Name = text
-			FK.Parent = Page
-			FK.Text = ""
-			FK.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-			FK.BorderColor3 = Color3.fromRGB(55, 55, 55)
-			FK.Size = UDim2.new(0, 50, 0, 50)
-			FK.Font = Enum.Font.GothamMedium
-			FK.PlaceholderText = text
-			FK.TextColor3 = Color3.fromRGB(255, 255, 255)
-			FK.TextScaled = true
-			FK.TextSize = 14.000
-			FK.TextWrapped = true
-			FK.ClearTextOnFocus = false
-			FK.MultiLine = false
-			if orderLayout then
-				FK.LayoutOrder = orderLayout
-			end
-			FK.FocusLost:Connect(function(enterPressed)
+		
+		function UtilitiesOptions_2.CreateTextbox(text,callback,order)
+			local Frame = Instance.new("Frame")
+			local Text = Instance.new("TextLabel")
+			local Box = Instance.new("TextBox")
+			Frame.Parent = Mods
+			Frame.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
+			Frame.BorderColor3 = Color3.fromRGB(255, 206, 6)
+			Frame.LayoutOrder = 6
+			Frame.Size = UDim2.new(0, 333, 0, 35)
+			Frame.LayoutOrder = order or 0
+			Text.Name = "Text"
+			Text.Parent = Frame
+			Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Text.BackgroundTransparency = 1.000
+			Text.Size = UDim2.new(0, 224, 0, 35)
+			Text.Font = Enum.Font.GothamMedium
+			Text.Text = text
+			Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Text.TextScaled = true
+			Text.TextSize = 14.000
+			Text.TextStrokeTransparency = 0.000
+			Text.TextWrapped = true
+			Text.TextXAlignment = Enum.TextXAlignment.Left
+			Text.TextYAlignment = Enum.TextYAlignment.Top
+			Box.Name = "Box"
+			Box.Parent = Frame
+			Box.BackgroundColor3 = Color3.fromRGB(245, 255, 46)
+			Box.BorderColor3 = Color3.fromRGB(135, 115, 63)
+			Box.Position = UDim2.new(0, 224, 0, 3)
+			Box.Size = UDim2.new(0, 100, 0, 30)
+			Box.ClearTextOnFocus = false
+			Box.Font = Enum.Font.SourceSans
+			Box.PlaceholderText = "Input"
+			Box.Text = ""
+			Box.TextColor3 = Color3.fromRGB(255, 170, 0)
+			Box.TextScaled = true
+			Box.TextSize = 14.000
+			Box.TextStrokeColor3 = Color3.fromRGB(255, 85, 0)
+			Box.TextStrokeTransparency = 0.000
+			Box.TextWrapped = true
+			Box.FocusLost:Connect(function(enterPressed)
 				if enterPressed == true then
-					entered(FK.Text)
+					callback(Box.Text)
 				end
 			end)
-			local buttonEtc = {}
-			function buttonEtc:Refresh(txt:string,f)
-				if f then
-					FK.Text = txt
-				else
-					FK.PlaceholderText = txt
-				end
-				return buttonEtc
-			end
-			return buttonEtc
 		end
-		return Utility3
+		
+		function UtilitiesOptions_2.CreateToggle(txt,callback,order)
+			local Toggle2 = false
+			local RainbowName = Instance.new("Frame")
+			local Text = Instance.new("TextLabel")
+			local Toggle = Instance.new("TextButton")
+			RainbowName.Name = txt
+			RainbowName.Parent = Mods
+			RainbowName.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
+			RainbowName.BorderColor3 = Color3.fromRGB(255, 206, 6)
+			RainbowName.LayoutOrder = 8
+			RainbowName.Size = UDim2.new(0, 333, 0, 35)
+			RainbowName.ZIndex = 555
+			Text.Name = txt
+			Text.Parent = RainbowName
+			Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Text.BackgroundTransparency = 1.000
+			Text.Size = UDim2.new(0, 224, 0, 35)
+			Text.ZIndex = 555
+			Text.Font = Enum.Font.GothamMedium
+			Text.Text = txt
+			Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Text.TextScaled = true
+			Text.TextSize = 14.000
+			Text.TextStrokeTransparency = 0.000
+			Text.TextWrapped = true
+			Text.TextXAlignment = Enum.TextXAlignment.Left
+			Text.TextYAlignment = Enum.TextYAlignment.Top
+			Toggle.Name = "Toggle"
+			Toggle.Parent = RainbowName
+			Toggle.BackgroundColor3 = Color3.fromRGB(245, 255, 46)
+			Toggle.BorderColor3 = Color3.fromRGB(135, 115, 63)
+			Toggle.Position = UDim2.new(0, 224, 0, 3)
+			Toggle.Size = UDim2.new(0, 100, 0, 30)
+			Toggle.ZIndex = 555
+			Toggle.Font = Enum.Font.SourceSans
+			Toggle.Text = "False"
+			Toggle.TextColor3 = Color3.fromRGB(255, 170, 0)
+			Toggle.TextScaled = true
+			Toggle.TextSize = 14.000
+			Toggle.TextStrokeColor3 = Color3.fromRGB(255, 85, 0)
+			Toggle.TextStrokeTransparency = 0.000
+			Toggle.TextWrapped = true
+			Toggle.MouseButton1Click:Connect(function()
+				if Toggle2 == false then
+					Toggle.Text = "True"
+					callback(true)
+				else
+					Toggle.Text = "False"
+					callback(false)
+				end
+				Toggle2 = not Toggle2
+			end)
+			return {Get = function()
+				return Toggle2
+			end}
+		end
+		
+		return UtilitiesOptions_2
 	end
-	return Utility2
+	return UtilitiesOptions_1
 end
 
 return Utility
