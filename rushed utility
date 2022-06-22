@@ -221,7 +221,7 @@ function Utility.CreateLibrary(title:string)
 			end
 			FK.FocusLost:Connect(function(enterPressed)
 				if enterPressed == true then
-					pcall(entered)
+					entered(FK.Text)
 				end
 			end)
 			local buttonEtc = {}
