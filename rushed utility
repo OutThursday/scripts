@@ -410,6 +410,7 @@ function Utility.CreateLibrary(Title:string)
 				if toggled == true then
 					repeat wait() until toggled == false
 				end
+				notification.Visible = true
 				notification.Description.Text = text
 				for i = 1,10 do
 					local n = i/10
@@ -424,6 +425,7 @@ function Utility.CreateLibrary(Title:string)
 					game:GetService("RunService").Heartbeat:Wait()
 				end
 				notification.Popup.Scale = 0
+				notification.Visible = false
 			end)()
 		end
 	end
