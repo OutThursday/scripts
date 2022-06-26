@@ -1,6 +1,7 @@
 local Main = {}
 local Utility = {}
 local CoreGui = game:GetService("CoreGui")
+local toggled = false
 
 function CreateUI()
 	local FK1 = Instance.new("ScreenGui")
@@ -78,7 +79,7 @@ function CreateUI()
 		end
 		wait(0.35)
 	end)
-	
+
 	Buttons.Name = "Buttons"
 	Buttons.Parent = Frame
 	Buttons.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
@@ -271,7 +272,7 @@ function Utility.CreateLibrary(Title:string)
 		Title.TextSize = 14.000
 		Title.TextStrokeTransparency = 0.000
 		Title.TextWrapped = true
-		
+
 		function UtilitiesOptions_2.CreateButton(text,callback,order)
 			local BTN = Instance.new("TextButton")
 			BTN.Name = text
@@ -295,7 +296,7 @@ function Utility.CreateLibrary(Title:string)
 				BTN.Text = txt
 			end}
 		end
-		
+
 		function UtilitiesOptions_2.CreateTextbox(text,callback,order)
 			local Frame = Instance.new("Frame")
 			local Text = Instance.new("TextLabel")
@@ -342,7 +343,7 @@ function Utility.CreateLibrary(Title:string)
 				end
 			end)
 		end
-		
+
 		function UtilitiesOptions_2.CreateToggle(txt,callback,order)
 			local Toggle2 = false
 			local RainbowName = Instance.new("Frame")
@@ -399,8 +400,32 @@ function Utility.CreateLibrary(Title:string)
 				return Toggle2
 			end}
 		end
-		
+
 		return UtilitiesOptions_2
+	end
+	function UtilitiesOptions_1.Notify(text)
+		if typeof(text) == "string" then
+			local notification = UI:WaitForChild("Popup",3)
+			coroutine.wrap(function()
+				if toggled == true then
+					repeat wait() until toggled == false
+				end
+				notification.Description.Text = text
+				for i = 1,10 do
+					local n = i/10
+					notification.Popup.Scale = n
+					game:GetService("RunService").Heartbeat:Wait()
+				end
+				notification.Popup.Scale = 1
+				wait(5)
+				for i = 1,10 do
+					local n = 1-(i/10)
+					notification.Popup.Scale = n
+					game:GetService("RunService").Heartbeat:Wait()
+				end
+				notification.Popup.Scale = 0
+			end)()
+		end
 	end
 	return UtilitiesOptions_1
 end
