@@ -1,6 +1,7 @@
 local Main = {}
 local Utility = {}
 local CoreGui = game:GetService("CoreGui")
+local Notification = nil
 
 function CreateUI()
 	local FK1 = Instance.new("ScreenGui")
@@ -16,6 +17,7 @@ function CreateUI()
 	local Popup_2 = Instance.new("UIScale")
 	local Title_2 = Instance.new("TextLabel")
 	local Description = Instance.new("TextLabel")
+	Notification = Popup
 	FK1.Name = "FK1"
 	FK1.Parent = CoreGui
 	Frame.Parent = FK1
@@ -404,24 +406,23 @@ function Utility.CreateLibrary(Title:string)
 	end
 	function UtilitiesOptions_1.Notify(text)
 		if typeof(text) == "string" then
-			local notification = UI:WaitForChild("Popup",3)
 			coroutine.wrap(function()
-				notification.Visible = true
-				notification.Description.Text = text
+				Notification.Visible = true
+				Notification.Description.Text = text
 				for i = 1,10 do
 					local n = i/10
-					notification:FindFirstChildWhichIsA("UIScale").Scale = n
+					Notification:FindFirstChildWhichIsA("UIScale").Scale = n
 					game:GetService("RunService").Heartbeat:Wait()
 				end
-				notification:FindFirstChildWhichIsA("UIScale").Scale = 1
+				Notification:FindFirstChildWhichIsA("UIScale").Scale = 1
 				wait(5)
 				for i = 1,10 do
 					local n = 1-(i/10)
-					notification:FindFirstChildWhichIsA("UIScale").Scale = n
+					Notification:FindFirstChildWhichIsA("UIScale").Scale = n
 					game:GetService("RunService").Heartbeat:Wait()
 				end
-				notification:FindFirstChildWhichIsA("UIScale").Scale = 0
-				notification.Visible = false
+				Notification:FindFirstChildWhichIsA("UIScale").Scale = 0
+				Notification.Visible = false
 			end)()
 		end
 	end
