@@ -1,7 +1,6 @@
 local Main = {}
 local Utility = {}
 local CoreGui = game:GetService("CoreGui")
-local toggled = false
 
 function CreateUI()
 	local FK1 = Instance.new("ScreenGui")
@@ -407,24 +406,21 @@ function Utility.CreateLibrary(Title:string)
 		if typeof(text) == "string" then
 			local notification = UI:WaitForChild("Popup",3)
 			coroutine.wrap(function()
-				if toggled == true then
-					repeat wait() until toggled == false
-				end
 				notification.Visible = true
 				notification.Description.Text = text
 				for i = 1,10 do
 					local n = i/10
-					notification.Popup.Scale = n
+					notification:FindFirstChildWhichIsA("UIScale").Scale = n
 					game:GetService("RunService").Heartbeat:Wait()
 				end
-				notification.Popup.Scale = 1
+				notification:FindFirstChildWhichIsA("UIScale").Scale = 1
 				wait(5)
 				for i = 1,10 do
 					local n = 1-(i/10)
-					notification.Popup.Scale = n
+					notification:FindFirstChildWhichIsA("UIScale").Scale = n
 					game:GetService("RunService").Heartbeat:Wait()
 				end
-				notification.Popup.Scale = 0
+				notification:FindFirstChildWhichIsA("UIScale").Scale = 0
 				notification.Visible = false
 			end)()
 		end
