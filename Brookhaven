@@ -1,0 +1,4 @@
+if messagebox then
+messagebox("The brookhaven script is (not published) or (not done) or currently updating..","Brookhaven",0)
+end
+error("This script isn't published yet.")
