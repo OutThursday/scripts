@@ -1,0 +1,24 @@
+local LoadingScreen = Instance.new("ScreenGui")
+local Image = Instance.new("ImageLabel")
+local ROBLOX = Instance.new("ImageLabel")
+
+LoadingScreen.Name = "Loading Screen"
+LoadingScreen.Parent = game
+LoadingScreen.DisplayOrder = 35
+LoadingScreen.ResetOnSpawn = false
+
+Image.Name = "Image"
+Image.Parent = LoadingScreen
+Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Image.Size = UDim2.new(1, 0, 1, 0)
+Image.Image = "rbxasset://textures/loading/darkLoadingTexture.png"
+
+ROBLOX.Name = "ROBLOX"
+ROBLOX.Parent = Image
+ROBLOX.AnchorPoint = Vector2.new(0, 0.5)
+ROBLOX.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ROBLOX.BackgroundTransparency = 1.000
+ROBLOX.Position = UDim2.new(0, 0, 0.5, 0)
+ROBLOX.Size = UDim2.new(1, 0, 0, 500)
+ROBLOX.ZIndex = 88
+ROBLOX.Image = "rbxasset://textures/loading/robloxlogo.png"
