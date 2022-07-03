@@ -196,6 +196,18 @@ function Utility.DraggableFrame(gui)
 	end)
 end
 
+local colors = {
+	minimize = {},
+	close = {},
+	text = {},
+	text1 = {},
+	background = {},
+	background1 = {},
+	background2 = {},
+	button = {},
+	stroke = {},
+	toggle = {},
+}
 function Utility.CreateLibrary(Title:string)
 	local UI = CreateUI()
 	Utility.DraggableFrame(UI.Frame)
@@ -273,14 +285,13 @@ function Utility.CreateLibrary(Title:string)
 		Title.TextSize = 14.000
 		Title.TextStrokeTransparency = 0.000
 		Title.TextWrapped = true
-
 		function UtilitiesOptions_2.CreateButton(text,callback,order)
 			local BTN = Instance.new("TextButton")
 			BTN.Name = text
 			BTN.Parent = Mods
 			BTN.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
 			BTN.BorderColor3 = Color3.fromRGB(255, 206, 6)
-			BTN.LayoutOrder = order or 0
+			BTN.LayoutOrder = tonumber(order) or 0
 			BTN.Position = UDim2.new(0, 13, 0, 52)
 			BTN.Size = UDim2.new(0, 333, 0, 35)
 			BTN.Font = Enum.Font.GothamMedium
@@ -297,7 +308,6 @@ function Utility.CreateLibrary(Title:string)
 				BTN.Text = txt
 			end}
 		end
-
 		function UtilitiesOptions_2.CreateTextbox(text,callback,order)
 			local Frame = Instance.new("Frame")
 			local Text = Instance.new("TextLabel")
@@ -305,7 +315,7 @@ function Utility.CreateLibrary(Title:string)
 			Frame.Parent = Mods
 			Frame.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
 			Frame.BorderColor3 = Color3.fromRGB(255, 206, 6)
-			Frame.LayoutOrder = 6
+			Frame.LayoutOrder = tonumber(order) or 0
 			Frame.Size = UDim2.new(0, 333, 0, 35)
 			Frame.LayoutOrder = order or 0
 			Text.Name = "Text"
@@ -344,7 +354,6 @@ function Utility.CreateLibrary(Title:string)
 				end
 			end)
 		end
-
 		function UtilitiesOptions_2.CreateToggle(txt,callback,order)
 			local Toggle2 = false
 			local RainbowName = Instance.new("Frame")
@@ -354,7 +363,7 @@ function Utility.CreateLibrary(Title:string)
 			RainbowName.Parent = Mods
 			RainbowName.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
 			RainbowName.BorderColor3 = Color3.fromRGB(255, 206, 6)
-			RainbowName.LayoutOrder = 8
+			RainbowName.LayoutOrder = tonumber(order) or 0
 			RainbowName.Size = UDim2.new(0, 333, 0, 35)
 			RainbowName.ZIndex = 555
 			Text.Name = txt
@@ -401,7 +410,27 @@ function Utility.CreateLibrary(Title:string)
 				return Toggle2
 			end}
 		end
-
+		function UtilitiesOptions_2.CreateTextLabel(text,order)
+			local TextLabel = Instance.new("TextLabel")
+			TextLabel.Parent = Mods
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.Size = UDim2.new(0, 333, 0, 20)
+			TextLabel.Font = Enum.Font.GothamBlack
+			TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.TextScaled = true
+			TextLabel.TextSize = 14.000
+			TextLabel.TextWrapped = true
+			TextLabel.Text = text
+			TextLabel.LayoutOrder = tonumber(order) or 0
+			local ta = {}
+			function ta:UpdateText(txt)
+				TextLabel.Text = txt
+				return ta
+			end
+			return ta
+		end
+		
 		return UtilitiesOptions_2
 	end
 	function UtilitiesOptions_1.Notify(text)
