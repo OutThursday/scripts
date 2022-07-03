@@ -214,34 +214,50 @@ function Utility.CreateLibrary(Title:string)
 	UI.Frame.Title.Text = Title
 	local UtilitiesOptions_1 = {}
 	local function ShowTab(txt)
-		for i,v in pairs(UI.Frame.Frames:GetChildren()) do
-			if v.Name == txt then
-				v.Visible = true
+		if UI.Frame.Frames:FindFirstChild(txt) ~= nil then
+			if UI.Frame.Frames:FindFirstChild(txt).Visible == true then
+				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
+					if v.Name == txt then
+						v.Visible = true
+					else
+						v.Visible = false
+					end
+				end
 			else
+				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
+					v.Visible = false
+				end
+				UI.Frame.Frames["UTILITY____SETTINGS"].Visible = true
+			end
+		else
+			for i,v in pairs(UI.Frame.Frames:GetChildren()) do
 				v.Visible = false
 			end
+			UI.Frame.Frames["UTILITY____SETTINGS"].Visible = true
 		end
 	end
-	function UtilitiesOptions_1.CreateTab(text)
+	function UtilitiesOptions_1.CreateTab(text,b)
 		local UtilitiesOptions_2 = {}
-		local BT = Instance.new("TextButton")
-		BT.Name = text
-		BT.Parent = UI.Frame.Buttons.Scroll
-		BT.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
-		BT.BorderColor3 = Color3.fromRGB(255, 128, 0)
-		BT.Size = UDim2.new(0, 200, 0, 50)
-		BT.Font = Enum.Font.GothamMedium
-		BT.Text = text
-		BT.TextColor3 = Color3.fromRGB(255, 255, 255)
-		BT.TextScaled = true
-		BT.TextSize = 14.000
-		BT.TextStrokeTransparency = 0.000
-		BT.TextWrapped = true
-		BT.LayoutOrder = #UI.Frame.Buttons.Scroll:GetChildren()+1
+		if b ~= "8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t" then
+			local BT = Instance.new("TextButton")
+			BT.Name = text
+			BT.Parent = UI.Frame.Buttons.Scroll
+			BT.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+			BT.BorderColor3 = Color3.fromRGB(255, 128, 0)
+			BT.Size = UDim2.new(0, 200, 0, 50)
+			BT.Font = Enum.Font.GothamMedium
+			BT.Text = text
+			BT.TextColor3 = Color3.fromRGB(255, 255, 255)
+			BT.TextScaled = true
+			BT.TextSize = 14.000
+			BT.TextStrokeTransparency = 0.000
+			BT.TextWrapped = true
+			BT.LayoutOrder = #UI.Frame.Buttons.Scroll:GetChildren()+1
+			BT.MouseButton1Click:Connect(function()
+				ShowTab(text)
+			end)
+		end
 		local o = #UI.Frame.Frames:GetChildren()
-		BT.MouseButton1Click:Connect(function()
-			ShowTab(text)
-		end)
 		local GF = Instance.new("Frame")
 		local Mods = Instance.new("ScrollingFrame")
 		local Grid = Instance.new("UIGridLayout")
@@ -430,7 +446,6 @@ function Utility.CreateLibrary(Title:string)
 			end
 			return ta
 		end
-		
 		return UtilitiesOptions_2
 	end
 	function UtilitiesOptions_1.Notify(text)
@@ -455,6 +470,10 @@ function Utility.CreateLibrary(Title:string)
 			end)()
 		end
 	end
+	coroutine.wrap(function()
+		local Settings = UtilitiesOptions_1.CreateTab("Settings","8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t")
+		Settings.CreateTextLabel("Utility made by @fakeSynapseUI",0)
+	end)()
 	return UtilitiesOptions_1
 end
 
