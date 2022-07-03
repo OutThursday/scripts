@@ -3,6 +3,20 @@ local Utility = {}
 local CoreGui = game:GetService("CoreGui")
 local Notification = nil
 
+local colors = {
+	minimize = {},
+	close = {},
+	text = {},
+	text1 = {},
+	background = {},
+	background1 = {},
+	background2 = {},
+	button = {},
+	stroke = {},
+	toggle = {},
+}
+local ins = table.insert
+
 function CreateUI()
 	local FK1 = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
@@ -27,6 +41,8 @@ function CreateUI()
 	Frame.ClipsDescendants = true
 	Frame.Position = UDim2.new(0, 82, 0, 114)
 	Frame.Size = UDim2.new(0, 500, 0, 500)
+	ins(colors.background,Frame)
+	ins(colors.stroke,Frame)
 	Frame.ZIndex = 0
 	Title.Name = "Title"
 	Title.Parent = Frame
@@ -42,6 +58,8 @@ function CreateUI()
 	Title.TextSize = 14.000
 	Title.TextStrokeTransparency = 0.000
 	Title.TextWrapped = true
+	ins(colors.text,Title)
+	ins(colors.stroke,Title)
 	Close.Name = "Close"
 	Close.Parent = Title
 	Close.BackgroundColor3 = Color3.fromRGB(255, 0, 59)
@@ -58,6 +76,7 @@ function CreateUI()
 		wait(0.35)
 		FK1:Destroy()
 	end)
+	ins(colors.close,Close)
 	Minimize.Name = "Minimize"
 	Minimize.Parent = Title
 	Minimize.BackgroundColor3 = Color3.fromRGB(255, 109, 42)
@@ -80,7 +99,7 @@ function CreateUI()
 		end
 		wait(0.35)
 	end)
-
+	ins(colors.minimize,Minimize)
 	Buttons.Name = "Buttons"
 	Buttons.Parent = Frame
 	Buttons.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
@@ -99,19 +118,16 @@ function CreateUI()
 	Scroll.Size = UDim2.new(0, 150, 0, 443)
 	Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
 	Scroll.ScrollBarThickness = 6
-
 	UIGridLayout.Parent = Scroll
 	UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIGridLayout.CellSize = UDim2.new(0, 130, 0, 35)
-
 	Frames.Name = "Frames"
 	Frames.Parent = Frame
 	Frames.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Frames.BackgroundTransparency = 1.000
 	Frames.Position = UDim2.new(0, 150, 0, 50)
 	Frames.Size = UDim2.new(0, 350, 0, 450)
-
 	Popup.Name = "Popup"
 	Popup.Parent = FK1
 	Popup.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -123,11 +139,11 @@ function CreateUI()
 	Popup.Size = UDim2.new(0, 200, 0, 200)
 	Popup.Visible = false
 	Popup.ZIndex = 29
-
+	ins(colors.background,Popup)
+	
 	Popup_2.Name = "Popup"
 	Popup_2.Parent = Popup
 	Popup_2.Scale = 0.000
-
 	Title_2.Name = "Title"
 	Title_2.Parent = Popup
 	Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -196,18 +212,6 @@ function Utility.DraggableFrame(gui)
 	end)
 end
 
-local colors = {
-	minimize = {},
-	close = {},
-	text = {},
-	text1 = {},
-	background = {},
-	background1 = {},
-	background2 = {},
-	button = {},
-	stroke = {},
-	toggle = {},
-}
 function Utility.CreateLibrary(Title:string)
 	local UI = CreateUI()
 	Utility.DraggableFrame(UI.Frame)
@@ -217,28 +221,26 @@ function Utility.CreateLibrary(Title:string)
 		if UI.Frame.Frames:FindFirstChild(txt) ~= nil then
 			if UI.Frame.Frames:FindFirstChild(txt).Visible == true then
 				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
+					v.Visible = false
+				end
+				UI.Frame.Frames["UTILITYSETTINGS"].Visible = true
+			else
+				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
 					if v.Name == txt then
 						v.Visible = true
 					else
 						v.Visible = false
 					end
 				end
-			else
-				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
-					v.Visible = false
-				end
-				UI.Frame.Frames["UTILITY____SETTINGS"].Visible = true
 			end
-		else
-			for i,v in pairs(UI.Frame.Frames:GetChildren()) do
-				v.Visible = false
-			end
-			UI.Frame.Frames["UTILITY____SETTINGS"].Visible = true
 		end
 	end
 	function UtilitiesOptions_1.CreateTab(text,b)
+		local bgrsdf = false
+		local ijogresfesdfjasiosefs = "UTILITYSETTINGS"
 		local UtilitiesOptions_2 = {}
 		if b ~= "8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t" then
+			bgrsdf = false
 			local BT = Instance.new("TextButton")
 			BT.Name = text
 			BT.Parent = UI.Frame.Buttons.Scroll
@@ -256,18 +258,24 @@ function Utility.CreateLibrary(Title:string)
 			BT.MouseButton1Click:Connect(function()
 				ShowTab(text)
 			end)
+		else
+			bgrsdf = true
 		end
 		local o = #UI.Frame.Frames:GetChildren()
 		local GF = Instance.new("Frame")
 		local Mods = Instance.new("ScrollingFrame")
 		local Grid = Instance.new("UIGridLayout")
 		local Title = Instance.new("TextLabel")
-		GF.Name = text
+		if bgrsdf == true then
+			GF.Name = "UTILITYSETTINGS"
+		else
+			GF.Name = text
+		end
 		GF.Parent = UI.Frame.Frames
 		GF.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		GF.BackgroundTransparency = 1.000
 		GF.Size = UDim2.new(0, 350, 0, 450)
-		GF.Visible = false
+		GF.Visible = bgrsdf
 		Mods.Name = text
 		Mods.Parent = GF
 		Mods.Active = true
@@ -473,6 +481,7 @@ function Utility.CreateLibrary(Title:string)
 	coroutine.wrap(function()
 		local Settings = UtilitiesOptions_1.CreateTab("Settings","8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t")
 		Settings.CreateTextLabel("Utility made by @fakeSynapseUI",0)
+		Settings.CreateTextLabel("Save Files: Disabled",-1)
 	end)()
 	return UtilitiesOptions_1
 end
