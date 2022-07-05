@@ -619,7 +619,7 @@ function Utility.CreateLibrary(Title:string)
 					end
 					return Color
 				end
-				for i,v in pairs(colors.close) do
+				for i,v in pairs(colors.minimize) do
 					v.BackgroundTransparency = GetColor(t)
 				end
 			end,8)
