@@ -334,8 +334,8 @@ function Utility.CreateLibrary(Title:string)
 			BTN.MouseButton1Click:Connect(function()
 				pcall(callback)
 			end)
-			ins(colors.text,Title)
-			ins(colors.background1,Title)
+			ins(colors.text,BTN)
+			ins(colors.background1,BTN)
 			return {Refresh = function(txt)
 				BTN.Text = txt
 			end}
