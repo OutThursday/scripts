@@ -1,0 +1,631 @@
+local Main = {}
+local Utility = {}
+local CoreGui = game:GetService("CoreGui")
+local Notification = nil
+
+local colors = {
+	minimize = {},
+	close = {},
+	text = {},
+	text1 = {},
+	background = {},
+	background1 = {},
+	background2 = {},
+	button = {},
+	stroke = {},
+	toggle = {},
+}
+local ins = table.insert
+
+function CreateUI()
+	local FK1 = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local Title = Instance.new("TextLabel")
+	local Close = Instance.new("TextButton")
+	local Minimize = Instance.new("TextButton")
+	local Buttons = Instance.new("Frame")
+	local Scroll = Instance.new("ScrollingFrame")
+	local UIGridLayout = Instance.new("UIGridLayout")
+	local Frames = Instance.new("Frame")
+	local Popup = Instance.new("Frame")
+	local Popup_2 = Instance.new("UIScale")
+	local Title_2 = Instance.new("TextLabel")
+	local Description = Instance.new("TextLabel")
+	Notification = Popup
+	FK1.Name = "FK1"
+	FK1.Parent = CoreGui
+	Frame.Parent = FK1
+	Frame.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+	Frame.BorderColor3 = Color3.fromRGB(170, 85, 0)
+	Frame.BorderSizePixel = 5
+	Frame.ClipsDescendants = true
+	Frame.Position = UDim2.new(0, 82, 0, 114)
+	Frame.Size = UDim2.new(0, 500, 0, 500)
+	ins(colors.background,Frame)
+	ins(colors.stroke,Frame)
+	Frame.ZIndex = 0
+	Title.Name = "Title"
+	Title.Parent = Frame
+	Title.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
+	Title.BorderColor3 = Color3.fromRGB(173, 57, 0)
+	Title.BorderSizePixel = 0
+	Title.Size = UDim2.new(0, 500, 0, 50)
+	Title.ZIndex = 3
+	Title.Font = Enum.Font.GothamMedium
+	Title.Text = "Text"
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextStrokeTransparency = 0.000
+	Title.TextWrapped = true
+	ins(colors.text,Title)
+	ins(colors.stroke,Title)
+	Close.Name = "Close"
+	Close.Parent = Title
+	Close.BackgroundColor3 = Color3.fromRGB(255, 0, 59)
+	Close.BorderSizePixel = 0
+	Close.Position = UDim2.new(0, 460, 0, 9)
+	Close.Size = UDim2.new(0, 31, 0, 31)
+	Close.ZIndex = 8970
+	Close.Font = Enum.Font.SourceSans
+	Close.Text = ""
+	Close.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Close.TextSize = 14.000
+	Close.MouseButton1Click:Connect(function()
+		Frame:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.35,false,nil)
+		wait(0.35)
+		FK1:Destroy()
+	end)
+	ins(colors.close,Close)
+	Minimize.Name = "Minimize"
+	Minimize.Parent = Title
+	Minimize.BackgroundColor3 = Color3.fromRGB(255, 109, 42)
+	Minimize.BorderSizePixel = 0
+	Minimize.Position = UDim2.new(0, 428, 0, 9)
+	Minimize.Size = UDim2.new(0, 31, 0, 31)
+	Minimize.ZIndex = 8970
+	Minimize.Font = Enum.Font.SourceSans
+	Minimize.Text = ""
+	Minimize.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Minimize.TextSize = 14.000
+	local toggle = false
+	Minimize.MouseButton1Click:Connect(function()
+		if toggle == false then
+			Frame:TweenSize(UDim2.new(0,500,0,50),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.45,false,nil)
+			toggle = true
+		else
+			Frame:TweenSize(UDim2.new(0,500,0,500),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.45,false,nil)
+			toggle = false
+		end
+		wait(0.35)
+	end)
+	ins(colors.minimize,Minimize)
+	Buttons.Name = "Buttons"
+	Buttons.Parent = Frame
+	Buttons.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
+	Buttons.BorderColor3 = Color3.fromRGB(173, 57, 0)
+	Buttons.BorderSizePixel = 0
+	Buttons.Position = UDim2.new(0, 0, 0, 50)
+	Buttons.Size = UDim2.new(0, 150, 0, 450)
+	ins(colors.background1,Buttons)
+	Scroll.Name = "Scroll"
+	Scroll.Parent = Buttons
+	Scroll.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
+	Scroll.BackgroundTransparency = 1.000
+	Scroll.BorderColor3 = Color3.fromRGB(255, 128, 0)
+	Scroll.BorderSizePixel = 0
+	Scroll.ClipsDescendants = false
+	Scroll.Position = UDim2.new(0, 0, 0, 7)
+	Scroll.Size = UDim2.new(0, 150, 0, 443)
+	Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+	Scroll.ScrollBarThickness = 6
+	UIGridLayout.Parent = Scroll
+	UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIGridLayout.CellSize = UDim2.new(0, 130, 0, 35)
+	Frames.Name = "Frames"
+	Frames.Parent = Frame
+	Frames.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Frames.BackgroundTransparency = 1.000
+	Frames.Position = UDim2.new(0, 150, 0, 50)
+	Frames.Size = UDim2.new(0, 350, 0, 450)
+	Popup.Name = "Popup"
+	Popup.Parent = FK1
+	Popup.AnchorPoint = Vector2.new(0.5, 0.5)
+	Popup.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+	Popup.BorderColor3 = Color3.fromRGB(170, 85, 0)
+	Popup.BorderSizePixel = 3
+	Popup.ClipsDescendants = true
+	Popup.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Popup.Size = UDim2.new(0, 200, 0, 200)
+	Popup.Visible = false
+	Popup.ZIndex = 29
+	ins(colors.background,Popup)
+	Popup_2.Name = "Popup"
+	Popup_2.Parent = Popup
+	Popup_2.Scale = 0.000
+	Title_2.Name = "Title"
+	Title_2.Parent = Popup
+	Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title_2.BackgroundTransparency = 1.000
+	Title_2.Size = UDim2.new(0, 200, 0, 30)
+	Title_2.ZIndex = 30
+	Title_2.Font = Enum.Font.GothamMedium
+	Title_2.Text = "Notification"
+	Title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title_2.TextScaled = true
+	Title_2.TextSize = 14.000
+	Title_2.TextStrokeTransparency = 0.000
+	Title_2.TextWrapped = true
+	ins(colors.text,Title_2)
+	Description.Name = "Description"
+	Description.Parent = Popup
+	Description.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+	Description.BorderColor3 = Color3.fromRGB(170, 85, 0)
+	Description.BorderSizePixel = 3
+	Description.Position = UDim2.new(0, 0, 0, 30)
+	Description.Size = UDim2.new(0, 200, 0, 170)
+	Description.ZIndex = 31
+	Description.Font = Enum.Font.GothamMedium
+	Description.Text = ""
+	Description.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Description.TextSize = 34.000
+	Description.TextStrokeTransparency = 0.000
+	Description.TextWrapped = true
+	ins(colors.text,Description)
+	return FK1
+end
+
+function Utility.DraggableFrame(gui)
+	spawn(function()
+		local UserInputService = game:GetService("UserInputService")
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+		local function update(input)
+			local delta = input.Position - dragStart
+			gui:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y), "InOut", "Quart", 0.0001, true, nil) 
+		end
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
+	end)
+end
+
+function Utility.CreateLibrary(Title:string)
+	local UI = CreateUI()
+	Utility.DraggableFrame(UI.Frame)
+	UI.Frame.Title.Text = Title
+	local UtilitiesOptions_1 = {}
+	local function ShowTab(txt)
+		if UI.Frame.Frames:FindFirstChild(txt) ~= nil then
+			if UI.Frame.Frames:FindFirstChild(txt).Visible == true then
+				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
+					v.Visible = false
+				end
+				UI.Frame.Frames["UTILITYSETTINGS"].Visible = true
+			else
+				for i,v in pairs(UI.Frame.Frames:GetChildren()) do
+					if v.Name == txt then
+						v.Visible = true
+					else
+						v.Visible = false
+					end
+				end
+			end
+		end
+	end
+	function UtilitiesOptions_1.CreateTab(text,b)
+		local bgrsdf = false
+		local ijogresfesdfjasiosefs = "UTILITYSETTINGS"
+		local UtilitiesOptions_2 = {}
+		if b ~= "8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t" then
+			bgrsdf = false
+			local BT = Instance.new("TextButton")
+			BT.Name = text
+			BT.Parent = UI.Frame.Buttons.Scroll
+			BT.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+			BT.BorderColor3 = Color3.fromRGB(255, 128, 0)
+			BT.Size = UDim2.new(0, 200, 0, 50)
+			BT.Font = Enum.Font.GothamMedium
+			BT.Text = text
+			BT.TextColor3 = Color3.fromRGB(255, 255, 255)
+			BT.TextScaled = true
+			BT.TextSize = 14.000
+			BT.TextStrokeTransparency = 0.000
+			BT.TextWrapped = true
+			BT.LayoutOrder = #UI.Frame.Buttons.Scroll:GetChildren()+1
+			BT.MouseButton1Click:Connect(function()
+				ShowTab(text)
+			end)
+			ins(colors.toggle,BT)
+			ins(colors.text,BT)
+			ins(colors.stroke,BT)
+		else
+			bgrsdf = true
+		end
+		local o = #UI.Frame.Frames:GetChildren()
+		local GF = Instance.new("Frame")
+		local Mods = Instance.new("ScrollingFrame")
+		local Grid = Instance.new("UIGridLayout")
+		local Title = Instance.new("TextLabel")
+		if bgrsdf == true then
+			GF.Name = "UTILITYSETTINGS"
+		else
+			GF.Name = text
+		end
+		GF.Parent = UI.Frame.Frames
+		GF.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		GF.BackgroundTransparency = 1.000
+		GF.Size = UDim2.new(0, 350, 0, 450)
+		GF.Visible = bgrsdf
+		Mods.Name = text
+		Mods.Parent = GF
+		Mods.Active = true
+		Mods.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Mods.BackgroundTransparency = 1.000
+		Mods.BorderSizePixel = 0
+		Mods.ClipsDescendants = false
+		Mods.Position = UDim2.new(0, 0, 0, 40)
+		Mods.Size = UDim2.new(0, 350, 0, 410)
+		Mods.CanvasSize = UDim2.new(0, 0, 0, 0)
+		Mods.ScrollBarThickness = 6
+		Mods.ChildAdded:Connect(function()
+			local Udim = UDim2.new(0,0,0, Grid.AbsoluteContentSize.Y + Mods.Size.Y.Offset + Grid.CellPadding.Y.Offset - 370)
+			Mods.CanvasSize = Udim
+		end)
+		Grid.CellSize = UDim2.new(0,333,0,35)
+		Grid.Parent = Mods
+		Grid.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		Grid.SortOrder = Enum.SortOrder.LayoutOrder
+		Grid.CellPadding = UDim2.new(0,5,0,5)
+		Title.Name = "Title"
+		Title.Parent = GF
+		Title.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+		Title.BorderColor3 = Color3.fromRGB(255, 85, 0)
+		Title.BorderSizePixel = 0
+		Title.Size = UDim2.new(0, 350, 0, 38)
+		Title.Font = Enum.Font.GothamBold
+		Title.Text = text
+		Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Title.TextScaled = true
+		Title.TextSize = 14.000
+		Title.TextStrokeTransparency = 0.000
+		Title.TextWrapped = true
+		ins(colors.text,Title)
+		ins(colors.background,Title)
+		function UtilitiesOptions_2.CreateButton(text,callback,order)
+			local BTN = Instance.new("TextButton")
+			BTN.Name = text
+			BTN.Parent = Mods
+			BTN.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
+			BTN.BorderColor3 = Color3.fromRGB(255, 206, 6)
+			BTN.LayoutOrder = tonumber(order) or 0
+			BTN.Position = UDim2.new(0, 13, 0, 52)
+			BTN.Size = UDim2.new(0, 333, 0, 35)
+			BTN.Font = Enum.Font.GothamMedium
+			BTN.Text = text
+			BTN.TextColor3 = Color3.fromRGB(255, 255, 255)
+			BTN.TextScaled = true
+			BTN.TextSize = 14.000
+			BTN.TextStrokeTransparency = 0.000
+			BTN.TextWrapped = true
+			BTN.MouseButton1Click:Connect(function()
+				pcall(callback)
+			end)
+			ins(colors.text,Title)
+			ins(colors.background1,Title)
+			return {Refresh = function(txt)
+				BTN.Text = txt
+			end}
+		end
+		function UtilitiesOptions_2.CreateTextbox(text,callback,order)
+			local Frame = Instance.new("Frame")
+			local Text = Instance.new("TextLabel")
+			local Box = Instance.new("TextBox")
+			Frame.Parent = Mods
+			Frame.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
+			Frame.BorderColor3 = Color3.fromRGB(255, 206, 6)
+			Frame.LayoutOrder = tonumber(order) or 0
+			Frame.Size = UDim2.new(0, 333, 0, 35)
+			Frame.LayoutOrder = order or 0
+			Text.Name = "Text"
+			Text.Parent = Frame
+			Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Text.BackgroundTransparency = 1.000
+			Text.Size = UDim2.new(0, 224, 0, 35)
+			Text.Font = Enum.Font.GothamMedium
+			Text.Text = text
+			Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Text.TextScaled = true
+			Text.TextSize = 14.000
+			Text.TextStrokeTransparency = 0.000
+			Text.TextWrapped = true
+			Text.TextXAlignment = Enum.TextXAlignment.Left
+			Text.TextYAlignment = Enum.TextYAlignment.Top
+			Box.Name = "Box"
+			Box.Parent = Frame
+			Box.BackgroundColor3 = Color3.fromRGB(245, 255, 46)
+			Box.BorderColor3 = Color3.fromRGB(135, 115, 63)
+			Box.Position = UDim2.new(0, 224, 0, 3)
+			Box.Size = UDim2.new(0, 100, 0, 30)
+			Box.ClearTextOnFocus = false
+			Box.Font = Enum.Font.SourceSans
+			Box.PlaceholderText = "Input"
+			Box.Text = ""
+			Box.TextColor3 = Color3.fromRGB(255, 170, 0)
+			Box.TextScaled = true
+			Box.TextSize = 14.000
+			Box.TextStrokeColor3 = Color3.fromRGB(255, 85, 0)
+			Box.TextStrokeTransparency = 0.000
+			Box.TextWrapped = true
+			Box.FocusLost:Connect(function(enterPressed)
+				if enterPressed == true then
+					callback(Box.Text)
+				end
+			end)
+			ins(colors.text1,Box)
+			ins(colors.text,Text)
+			ins(colors.background1,Frame)
+			ins(colors.background2,Box)
+		end
+		function UtilitiesOptions_2.CreateToggle(txt,callback,order)
+			local Toggle2 = false
+			local RainbowName = Instance.new("Frame")
+			local Text = Instance.new("TextLabel")
+			local Toggle = Instance.new("TextButton")
+			RainbowName.Name = txt
+			RainbowName.Parent = Mods
+			RainbowName.BackgroundColor3 = Color3.fromRGB(255, 154, 53)
+			RainbowName.BorderColor3 = Color3.fromRGB(255, 206, 6)
+			RainbowName.LayoutOrder = tonumber(order) or 0
+			RainbowName.Size = UDim2.new(0, 333, 0, 35)
+			RainbowName.ZIndex = 555
+			Text.Name = txt
+			Text.Parent = RainbowName
+			Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Text.BackgroundTransparency = 1.000
+			Text.Size = UDim2.new(0, 224, 0, 35)
+			Text.ZIndex = 555
+			Text.Font = Enum.Font.GothamMedium
+			Text.Text = txt
+			Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Text.TextScaled = true
+			Text.TextSize = 14.000
+			Text.TextStrokeTransparency = 0.000
+			Text.TextWrapped = true
+			Text.TextXAlignment = Enum.TextXAlignment.Left
+			Text.TextYAlignment = Enum.TextYAlignment.Top
+			Toggle.Name = "Toggle"
+			Toggle.Parent = RainbowName
+			Toggle.BackgroundColor3 = Color3.fromRGB(245, 255, 46)
+			Toggle.BorderColor3 = Color3.fromRGB(135, 115, 63)
+			Toggle.Position = UDim2.new(0, 224, 0, 3)
+			Toggle.Size = UDim2.new(0, 100, 0, 30)
+			Toggle.ZIndex = 555
+			Toggle.Font = Enum.Font.SourceSans
+			Toggle.Text = "False"
+			Toggle.TextColor3 = Color3.fromRGB(255, 170, 0)
+			Toggle.TextScaled = true
+			Toggle.TextSize = 14.000
+			Toggle.TextStrokeColor3 = Color3.fromRGB(255, 85, 0)
+			Toggle.TextStrokeTransparency = 0.000
+			Toggle.TextWrapped = true
+			Toggle.MouseButton1Click:Connect(function()
+				if Toggle2 == false then
+					Toggle.Text = "True"
+					callback(true)
+				else
+					Toggle.Text = "False"
+					callback(false)
+				end
+				Toggle2 = not Toggle2
+			end)
+			ins(colors.text1,Toggle)
+			ins(colors.text,Text)
+			ins(colors.background1,RainbowName)
+			ins(colors.background2,Toggle)
+			return {Get = function()
+				return Toggle2
+			end}
+		end
+		function UtilitiesOptions_2.CreateTextLabel(text,order)
+			local TextLabel = Instance.new("TextLabel")
+			TextLabel.Parent = Mods
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.Size = UDim2.new(0, 333, 0, 20)
+			TextLabel.Font = Enum.Font.GothamBlack
+			TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.TextScaled = true
+			TextLabel.TextSize = 14.000
+			TextLabel.TextWrapped = true
+			TextLabel.Text = text
+			TextLabel.LayoutOrder = tonumber(order) or 0
+			local ta = {}
+			ins(colors.text,TextLabel)
+			function ta:UpdateText(txt)
+				TextLabel.Text = txt
+				return ta
+			end
+			return ta
+		end
+		return UtilitiesOptions_2
+	end
+	function UtilitiesOptions_1.Notify(text)
+		if typeof(text) == "string" then
+			coroutine.wrap(function()
+				Notification.Visible = true
+				Notification.Description.Text = text
+				for i = 1,10 do
+					local n = i/10
+					Notification:FindFirstChildWhichIsA("UIScale").Scale = n
+					game:GetService("RunService").Heartbeat:Wait()
+				end
+				Notification:FindFirstChildWhichIsA("UIScale").Scale = 1
+				wait(5)
+				for i = 1,10 do
+					local n = 1-(i/10)
+					Notification:FindFirstChildWhichIsA("UIScale").Scale = n
+					game:GetService("RunService").Heartbeat:Wait()
+				end
+				Notification:FindFirstChildWhichIsA("UIScale").Scale = 0
+				Notification.Visible = false
+			end)()
+		end
+	end
+	coroutine.wrap(function()
+		pcall(function()
+			local Settings = UtilitiesOptions_1.CreateTab("Settings","8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t")
+			Settings.CreateTextLabel("Utility made by @fakeSynapseUI",0)
+			Settings.CreateTextLabel("Save Files: Disabled",-1)
+			local Colors = {
+				["Red"] = Color3.new(1,0,0.231373),
+				["Blue"] = Color3.new(0,0.5,1),
+				["Black"] = Color3.new(0.23,0.23,0.23),
+				["White"] = Color3.new(1,1,1),
+				["Orange"] = Color3.new(1,0.333333,0),
+				["Really Black"] = Color3.new(0,0,0),
+				["Purple"] = Color3.new(0.5,0.25,1),
+				["Pink"] = Color3.new(1,0.65,1),
+				["Yellow"] = Color3.new(1,0.93,0)
+			}
+			Settings.CreateTextbox("Background Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,85,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.background) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,1)
+			Settings.CreateTextbox("Background-1 Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(173,57,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.background1) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,2)
+			Settings.CreateTextbox("Background-2 Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(245,255,46)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.background2) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,3)
+			Settings.CreateTextbox("Toggle Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,85,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.toggle) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,4)
+			Settings.CreateTextbox("Text Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,255,255)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.text) do
+					v.TextColor3 = GetColor(t)
+				end
+			end,5)
+			Settings.CreateTextbox("Text-1 Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,149,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.text1) do
+					v.TextColor3 = GetColor(t)
+				end
+			end,6)
+			Settings.CreateTextbox("Close Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,0,59)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.close) do
+					v.BackgroundTransparency = GetColor(t)
+				end
+			end,7)
+			Settings.CreateTextbox("Minimize Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,109,42)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.close) do
+					v.BackgroundTransparency = GetColor(t)
+				end
+			end,8)
+		end)
+	end)()
+	return UtilitiesOptions_1
+end
+
+return Utility
