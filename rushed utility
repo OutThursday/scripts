@@ -107,6 +107,7 @@ function CreateUI()
 	Buttons.BorderSizePixel = 0
 	Buttons.Position = UDim2.new(0, 0, 0, 50)
 	Buttons.Size = UDim2.new(0, 150, 0, 450)
+	ins(colors.background1,Buttons)
 	Scroll.Name = "Scroll"
 	Scroll.Parent = Buttons
 	Scroll.BackgroundColor3 = Color3.fromRGB(173, 57, 0)
@@ -140,7 +141,6 @@ function CreateUI()
 	Popup.Visible = false
 	Popup.ZIndex = 29
 	ins(colors.background,Popup)
-	
 	Popup_2.Name = "Popup"
 	Popup_2.Parent = Popup
 	Popup_2.Scale = 0.000
@@ -157,7 +157,7 @@ function CreateUI()
 	Title_2.TextSize = 14.000
 	Title_2.TextStrokeTransparency = 0.000
 	Title_2.TextWrapped = true
-
+	ins(colors.text,Title_2)
 	Description.Name = "Description"
 	Description.Parent = Popup
 	Description.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
@@ -172,6 +172,7 @@ function CreateUI()
 	Description.TextSize = 34.000
 	Description.TextStrokeTransparency = 0.000
 	Description.TextWrapped = true
+	ins(colors.text,Description)
 	return FK1
 end
 
@@ -258,6 +259,9 @@ function Utility.CreateLibrary(Title:string)
 			BT.MouseButton1Click:Connect(function()
 				ShowTab(text)
 			end)
+			ins(colors.toggle,BT)
+			ins(colors.text,BT)
+			ins(colors.stroke,BT)
 		else
 			bgrsdf = true
 		end
@@ -309,6 +313,8 @@ function Utility.CreateLibrary(Title:string)
 		Title.TextSize = 14.000
 		Title.TextStrokeTransparency = 0.000
 		Title.TextWrapped = true
+		ins(colors.text,Title)
+		ins(colors.background,Title)
 		function UtilitiesOptions_2.CreateButton(text,callback,order)
 			local BTN = Instance.new("TextButton")
 			BTN.Name = text
@@ -328,6 +334,8 @@ function Utility.CreateLibrary(Title:string)
 			BTN.MouseButton1Click:Connect(function()
 				pcall(callback)
 			end)
+			ins(colors.text,Title)
+			ins(colors.background1,Title)
 			return {Refresh = function(txt)
 				BTN.Text = txt
 			end}
@@ -377,6 +385,10 @@ function Utility.CreateLibrary(Title:string)
 					callback(Box.Text)
 				end
 			end)
+			ins(colors.text1,Box)
+			ins(colors.text,Text)
+			ins(colors.background1,Frame)
+			ins(colors.background2,Box)
 		end
 		function UtilitiesOptions_2.CreateToggle(txt,callback,order)
 			local Toggle2 = false
@@ -430,6 +442,10 @@ function Utility.CreateLibrary(Title:string)
 				end
 				Toggle2 = not Toggle2
 			end)
+			ins(colors.text1,Toggle)
+			ins(colors.text,Text)
+			ins(colors.background1,RainbowName)
+			ins(colors.background2,Toggle)
 			return {Get = function()
 				return Toggle2
 			end}
@@ -448,6 +464,7 @@ function Utility.CreateLibrary(Title:string)
 			TextLabel.Text = text
 			TextLabel.LayoutOrder = tonumber(order) or 0
 			local ta = {}
+			ins(colors.text,TextLabel)
 			function ta:UpdateText(txt)
 				TextLabel.Text = txt
 				return ta
@@ -479,9 +496,134 @@ function Utility.CreateLibrary(Title:string)
 		end
 	end
 	coroutine.wrap(function()
-		local Settings = UtilitiesOptions_1.CreateTab("Settings","8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t")
-		Settings.CreateTextLabel("Utility made by @fakeSynapseUI",0)
-		Settings.CreateTextLabel("Save Files: Disabled",-1)
+		pcall(function()
+			local Settings = UtilitiesOptions_1.CreateTab("Settings","8093r2578ut9uyw89tyuw894ruw809tuw-039tiw390tiw390t")
+			Settings.CreateTextLabel("Utility made by @fakeSynapseUI",0)
+			Settings.CreateTextLabel("Save Files: Disabled",-1)
+			local Colors = {
+				["Red"] = Color3.new(1,0,0.231373),
+				["Blue"] = Color3.new(0,0.5,1),
+				["Black"] = Color3.new(0.23,0.23,0.23),
+				["White"] = Color3.new(1,1,1),
+				["Orange"] = Color3.new(1,0.333333,0),
+				["Really Black"] = Color3.new(0,0,0),
+				["Purple"] = Color3.new(0.5,0.25,1),
+				["Pink"] = Color3.new(1,0.65,1),
+				["Yellow"] = Color3.new(1,0.93,0)
+			}
+			Settings.CreateTextbox("Background Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,85,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.background) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,1)
+			Settings.CreateTextbox("Background-1 Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(173,57,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.background1) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,2)
+			Settings.CreateTextbox("Background-2 Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(245,255,46)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.background2) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,3)
+			Settings.CreateTextbox("Toggle Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,85,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.toggle) do
+					v.BackgroundColor3 = GetColor(t)
+				end
+			end,4)
+			Settings.CreateTextbox("Text Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,255,255)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.text) do
+					v.TextColor3 = GetColor(t)
+				end
+			end,5)
+			Settings.CreateTextbox("Text-1 Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,149,0)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.text1) do
+					v.TextColor3 = GetColor(t)
+				end
+			end,6)
+			Settings.CreateTextbox("Close Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,0,59)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.close) do
+					v.BackgroundTransparency = GetColor(t)
+				end
+			end,7)
+			Settings.CreateTextbox("Minimize Color",function(t)
+				local function GetColor(m)
+					local Color = Color3.fromRGB(255,109,42)
+					for index, Value in pairs(Colors) do
+						if string.lower(index):find(string.lower(tostring(m))) then
+							Color = Value
+						end
+					end
+					return Color
+				end
+				for i,v in pairs(colors.close) do
+					v.BackgroundTransparency = GetColor(t)
+				end
+			end,8)
+		end)
 	end)()
 	return UtilitiesOptions_1
 end
