@@ -1,0 +1,87 @@
+
+function SetFenv(String,Variable)
+	getfenv()[String] = Variable
+	getgenv()[String] = Variable
+end
+local wrap = function(FUNC)
+	local cor = coroutine.wrap(FUNC)
+	return cor
+end
+
+local RunService = game:GetService("RunService")
+local GuiService = game:GetService("GuiService")
+SetFenv("getservice",function(...)
+	return game:GetService(...)
+end)
+SetFenv("loadhttp",function(...)
+	return loadstring(game:HttpGet(...))()
+end)
+SetFenv("encode",function(...)
+	return getservice("HttpService"):JSONEncode(...)
+end)
+SetFenv("dencode",function(...)
+	return getservice("HttpService"):JSONDecode(...)
+end)
+SetFenv("getplayerdata",function(player)
+	local http = game:HttpGet("https://users.roblox.com/v1/users/"..tostring(player.UserId))
+	local data = dencode(http)
+	local Created = data["created"]:split("T")
+	local Created2 = Created[2]:split(".")
+	local Plus13Link = "https://www.roblox.com/users/%s/profile"
+	local Under13Link = "https://web.roblox.com/users/%s/profile"
+	local Link = ""
+	if player:GetUnder13() == true then
+		Link = string.format(Under13Link,tostring(player.UserId))
+	else
+		Link = string.format(Plus13Link,tostring(player.UserId))
+	end
+	local customdata = {
+		["Joined"] = Created[1].." "..Created2[1],
+		["Description"] = data["description"],
+		["ID"] = data["id"],
+		["Username"] = data["name"],
+		["DisplayName"] = data["displayName"],
+		["Link"] = Link,
+		["Friends"] = getservice("Players"):GetFriendsAsync(player.UserId),
+		["Character"] = getservice("Players"):GetCharacterAppearanceInfoAsync(player.UserId),
+		["RigType"] = getservice("Players"):GetCharacterAppearanceInfoAsync(player.UserId)["playerAvatarType"],
+		["Passcode"] = 0x8e2,
+		["HasVoiceChat"] = getservice("VoiceChatService"):IsVoiceEnabledForUserIdAsync(player.UserId),
+	}
+	return customdata
+end)
+SetFenv("Selection",function(button)
+	if button:IsA("ImageButton") or button:IsA("TextButton") then
+		button.MouseButton1Down:Connect(function()
+			GuiService.SelectedCoreObject = button
+		end)
+		button.MouseButton1Up:Connect(function()
+			GuiService.SelectedCoreObject = nil
+		end)
+	elseif button:IsA("TextBox") then
+		button.Focused:Connect(function()
+			GuiService.SelectedCoreObject = button
+		end)
+		button.FocusLost:Connect(function()
+			GuiService.SelectedCoreObject = nil
+		end)
+	end
+end)
+SetFenv("reversetext",function(textB,fm,mf)
+	if textB:IsA("TextButton") or textB:IsA("TextLabel") or textB:IsA("TextBox") then
+		coroutine.wrap(function()
+			while textB ~= nil do
+				wait(mf)
+				local origin = textB.Text
+				textB.Text = origin:reverse()
+				wait(fm)
+				textB.Text = origin
+			end
+		end)()
+	end
+end)
+
+RunService.Heartbeat:Wait()
+
+SetFenv("customVariablesLoaded",true)
+
